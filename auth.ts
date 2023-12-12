@@ -28,9 +28,12 @@ export const { auth, signIn, signOut } = NextAuth({
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
+          
+          // console.log('user',user)
           if (!user) return null;
+          // console.log('密码',password)
           const passwordsMatch = await bcrypt.compare(password, user.password);
- 
+          // console.log('密码匹配',passwordsMatch)
           if (passwordsMatch) return user;
         }
  
